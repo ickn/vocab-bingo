@@ -1,0 +1,98 @@
+- word: apt
+  definitions:
+    - part_of_speech: adj
+      definition: Well-suited; fitting; appropriate.
+    - part_of_speech: adj
+      definition: Likely or almost certain.
+
+- word: blossom
+  definitions:
+    - part_of_speech: n
+      definition: A flower.
+    - part_of_speech: v
+      definition: To come into bloom.
+    - part_of_speech: v
+      definition: To develop.
+
+- word: bough
+  definitions:
+    - part_of_speech: n
+      definition: A large branch or limb of a tree.
+
+- word: content
+  definitions:
+    - part_of_speech: adj
+      definition: Happy with what one has; satisfied.
+    - part_of_speech: n
+      definition: A state of being satisfied and at peace.
+
+- word: detest
+  definitions:
+    - part_of_speech: v
+      definition: To dislike strongly; to hate.
+
+- word: dusk
+  definitions:
+    - part_of_speech: n
+      definition: The time at the end of the day just before dark.
+
+- word: extinguish
+  definitions:
+    - part_of_speech: v
+      definition: To put out, as a fire or a light.
+
+- word: familiar
+  definitions:
+    - part_of_speech: adj
+      definition: Often seen or experienced; known.
+    - part_of_speech: adj
+      definition: Having a good knowledge of.
+
+- word: obtain
+  definitions:
+    - part_of_speech: v
+      definition: To gain or get by making an effort.
+
+- word: orchard
+  definitions:
+    - part_of_speech: n
+      definition: A place where fruit trees grow.
+
+- word: practice
+  definitions:
+    - part_of_speech: v
+      definition: To say or do over and over in order to get better at something.
+    - part_of_speech: v
+      definition: To do; carry on, perform.
+    - part_of_speech: v
+      definition: To work at as a profession.
+    - part_of_speech: n
+      definition: A repeated action or usual way of doing something.
+    - part_of_speech: n
+      definition: The work of a profession.
+
+- word: prune
+  definitions:
+    - part_of_speech: v
+      definition: To cut off branches.
+    - part_of_speech: n
+      definition: A dried plum.
+
+- word: stout
+  definitions:
+    - part_of_speech: adj
+      definition: Heavily built; thickset.
+    - part_of_speech: adj
+      definition: Strong; not easily bent or broken.
+
+- word: threadbare
+  definitions:
+    - part_of_speech: adj
+      definition: Shabby and worn-out.
+
+- word: wander
+  definitions:
+    - part_of_speech: v
+      definition: To go from place to place with no plan or purpose in mind.
+    - part_of_speech: v
+      definition: To slip easily off the subject; to fail to work in a normal way.
