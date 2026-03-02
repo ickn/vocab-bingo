@@ -1,0 +1,90 @@
+- word: abreast
+  definitions:
+    - part_of_speech: adj/adv
+      definition: Side-by-side.
+    - part_of_speech: adj/adv
+      definition: Up-to-date.
+
+- word: barrier
+  definitions:
+    - part_of_speech: n
+      definition: Anything that stops progress or blocks the way.
+
+- word: breadth
+  definitions:
+    - part_of_speech: n
+      definition: The distance of something from side to side; width.
+    - part_of_speech: n
+      definition: Wide range; largeness.
+
+- word: capital
+  definitions:
+    - part_of_speech: n
+      definition: Wealth that can be used to produce more wealth.
+    - part_of_speech: n
+      definition: The city where the government of a state or country is located.
+    - part_of_speech: adj
+      definition: Punishable by death.
+
+- word: ensure
+  definitions:
+    - part_of_speech: v
+      definition: To make sure or certain.
+
+- word: external
+  definitions:
+    - part_of_speech: adj
+      definition: On or related to the outside.
+
+- word: feud
+  definitions:
+    - part_of_speech: n
+      definition: A long, bitter quarrel, especially between two families.
+    - part_of_speech: v
+      definition: To be enemies, to quarrel.
+
+- word: fortress
+  definitions:
+    - part_of_speech: n
+      definition: A building with strong walls made to be defended against attack; a fort.
+
+- word: frequent
+  definitions:
+    - part_of_speech: adj
+      definition: Happening often or over and over.
+    - part_of_speech: v
+      definition: To go to over and over.
+
+- word: frontier
+  definitions:
+    - part_of_speech: n
+      definition: The line between two countries.
+    - part_of_speech: n
+      definition: The outer limits of the settled part of a country.
+    - part_of_speech: n
+      definition: The outer limits of knowledge.
+
+- word: peasant
+  definitions:
+    - part_of_speech: n
+      definition: A person who makes a living from working the soil, especially historically or in poorer countries.
+
+- word: petty
+  definitions:
+    - part_of_speech: adj
+      definition: Of little importance; small.
+
+- word: threat
+  definitions:
+    - part_of_speech: n
+      definition: A warning that one may do harm.
+
+- word: utilize
+  definitions:
+    - part_of_speech: v
+      definition: To put to use.
+
+- word: vast
+  definitions:
+    - part_of_speech: adj
+      definition: Very great in area or amount.

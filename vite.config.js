@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import yaml from '@modyfi/vite-plugin-yaml';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), yaml()],
   base: '/vocab-bingo/',
 });
