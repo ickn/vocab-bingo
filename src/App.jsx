@@ -4,6 +4,7 @@ import ListPicker from "./components/ListPicker.jsx";
 import BingoCard from "./components/BingoCard.jsx";
 import DefinitionPrompt from "./components/DefinitionPrompt.jsx";
 import Scoreboard from "./components/Scoreboard.jsx";
+import VocabVibes from "./components/VocabVibes.jsx";
 import "./App.css";
 
 const MAX_CARDS = 5;
@@ -40,7 +41,6 @@ function buildCard(words, wordStatus) {
 
 function findNextDef(queue, fromIndex, cells) {
   const cardWords = new Set(cells.map((c) => c.word).filter((w) => w !== "None"));
-  const noneCorrect = cells[4]?.state === "correct";
 
   for (let i = fromIndex; i < queue.length; i++) {
     const entry = queue[i];
@@ -48,8 +48,6 @@ function findNextDef(queue, fromIndex, cells) {
 
     if (isOnCard) {
       if (cells.some((c) => c.word === entry.word && c.state === "correct")) continue;
-    } else {
-      if (noneCorrect) continue;
     }
 
     const def = pickRandom(entry.definitions);
@@ -105,6 +103,7 @@ function initCard(words, wordStatus) {
 
 export default function App() {
   const [selectedList, setSelectedList] = useState(null);
+  const [gameMode, setGameMode] = useState(null); // null | "bingo" | "vibes"
   const [cells, setCells] = useState([]);
   const [currentDef, setCurrentDef] = useState(null);
   const [defQueue, setDefQueue] = useState([]);
@@ -169,6 +168,7 @@ export default function App() {
 
   const handleBack = useCallback(() => {
     setSelectedList(null);
+    setGameMode(null);
     setCells([]);
     setCurrentDef(null);
     setDefQueue([]);
@@ -197,7 +197,7 @@ export default function App() {
       if (!currentDef || winMessage || cardFailed || gameWon || gameOver || feedback) return;
 
       const cell = cells[index];
-      if (cell.state === "correct") return;
+      if (cell.state === "correct" && cell.word !== "None") return;
 
       const cardWords = new Set(cells.map((c) => c.word).filter((w) => w !== "None"));
       const isOnCard = cardWords.has(currentDef.word);
@@ -206,35 +206,44 @@ export default function App() {
       // --- CORRECT NONE ---
       if (cell.word === "None" && !isOnCard) {
         setFeedback({ type: "correct", answer: currentDef.word });
-        const updated = [...cells];
-        updated[4] = { ...updated[4], state: "correct" };
-        setCells(updated);
+        const noneAlreadyGreen = cells[4].state === "correct";
 
-        if (checkWin(updated)) {
-          setCardHistory((prev) => [...prev, { results: currentCardResults, outcome: "bingo" }]);
-          setTimeout(() => {
-            setFeedback(null);
-            setWinMessage(true);
-            if (isLastCard) setTimeout(() => setGameOver(true), 2000);
-            else setTimeout(() => startNewCard(), 2000);
-          }, 2500);
-        } else {
-          const next = findNextDef(defQueue, defIndex, updated);
-          if (next) {
-            setDefIndex(next.nextIndex);
+        if (!noneAlreadyGreen) {
+          const updated = [...cells];
+          updated[4] = { ...updated[4], state: "correct" };
+          setCells(updated);
+
+          if (checkWin(updated)) {
+            setCardHistory((prev) => [...prev, { results: currentCardResults, outcome: "bingo" }]);
             setTimeout(() => {
               setFeedback(null);
-              setCurrentDef(next.def);
-            }, 2500);
-          } else {
-            setCardHistory((prev) => [...prev, { results: currentCardResults, outcome: "failed" }]);
-            setTimeout(() => {
-              setFeedback(null);
-              setCardFailed(true);
+              setWinMessage(true);
               if (isLastCard) setTimeout(() => setGameOver(true), 2000);
               else setTimeout(() => startNewCard(), 2000);
             }, 2500);
+            return;
           }
+        }
+
+        // Advance (None already green, or no bingo)
+        const searchCells = noneAlreadyGreen ? cells : [...cells].map((c, i) =>
+          i === 4 ? { ...c, state: "correct" } : c
+        );
+        const next = findNextDef(defQueue, defIndex, searchCells);
+        if (next) {
+          setDefIndex(next.nextIndex);
+          setTimeout(() => {
+            setFeedback(null);
+            setCurrentDef(next.def);
+          }, 2500);
+        } else {
+          setCardHistory((prev) => [...prev, { results: currentCardResults, outcome: "failed" }]);
+          setTimeout(() => {
+            setFeedback(null);
+            setCardFailed(true);
+            if (isLastCard) setTimeout(() => setGameOver(true), 2000);
+            else setTimeout(() => startNewCard(), 2000);
+          }, 2500);
         }
         return;
       }
@@ -245,6 +254,7 @@ export default function App() {
         playBeep();
         const newResults = { ...currentCardResults, [currentDef.word]: "wrong" };
         setCurrentCardResults(newResults);
+        const noneRestore = cells[4].state === "correct" ? "correct" : "default";
         setCells((prev) => {
           const n = [...prev];
           n[4] = { ...n[4], state: "wrong" };
@@ -257,7 +267,7 @@ export default function App() {
           setTimeout(() => {
             setCells((prev) => {
               const n = [...prev];
-              n[4] = { ...n[4], state: "default" };
+              n[4] = { ...n[4], state: noneRestore };
               return n;
             });
             setFeedback(null);
@@ -268,7 +278,7 @@ export default function App() {
           setTimeout(() => {
             setCells((prev) => {
               const n = [...prev];
-              n[4] = { ...n[4], state: "default" };
+              n[4] = { ...n[4], state: noneRestore };
               return n;
             });
             setFeedback(null);
@@ -366,10 +376,37 @@ export default function App() {
   if (!selectedList) {
     return (
       <div className="app">
-        <h1>Vocab Bingo</h1>
+        <h1>Vocab Games 🎮</h1>
         <ListPicker lists={lists} onSelect={setSelectedList} />
       </div>
     );
+  }
+
+  if (!gameMode) {
+    return (
+      <div className="app">
+        <h1>Vocab Games 🎮</h1>
+        <button className="back-btn" onClick={() => setSelectedList(null)}>&larr; Back to Lists</button>
+        <h2 className="mode-picker-title">{selectedList.name}</h2>
+        <p className="mode-picker-subtitle">Choose your game!</p>
+        <div className="mode-picker-grid">
+          <button className="mode-card mode-bingo" onClick={() => setGameMode("bingo")}>
+            <span className="mode-icon">🎯</span>
+            <span className="mode-name">Vocab Bingo</span>
+            <span className="mode-desc">Match definitions to words on a bingo card</span>
+          </button>
+          <button className="mode-card mode-vibes" onClick={() => setGameMode("vibes")}>
+            <span className="mode-icon">✨</span>
+            <span className="mode-name">Vocab Vibes</span>
+            <span className="mode-desc">Master every word with streaks & vibes!</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (gameMode === "vibes") {
+    return <VocabVibes list={selectedList} onBack={handleBack} />;
   }
 
   const canNewCard = !winMessage && !cardFailed && !gameWon && !gameOver;

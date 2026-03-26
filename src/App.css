@@ -376,3 +376,70 @@ h1 {
 .game-won-modal button:hover {
   background: #2f855a;
 }
+
+/* Mode Picker */
+.mode-picker-title {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #2d3748;
+  margin-bottom: 0.25rem;
+}
+
+.mode-picker-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #718096;
+  margin-bottom: 1.5rem;
+}
+
+.mode-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 3px solid;
+  text-align: center;
+}
+
+.mode-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.mode-bingo {
+  background: #ebf8ff;
+  border-color: #4299e1;
+}
+
+.mode-vibes {
+  background: linear-gradient(135deg, #fce4ec, #e8eaf6);
+  border-color: #ce93d8;
+}
+
+.mode-icon {
+  font-size: 2.5rem;
+}
+
+.mode-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.mode-desc {
+  font-size: 0.9rem;
+  color: #718096;
+  line-height: 1.4;
+}

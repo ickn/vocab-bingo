@@ -1,0 +1,100 @@
+- word: audition
+  definitions:
+    - part_of_speech: n
+      definition: A short performance by an actor or musician as a test for a particular job.
+    - part_of_speech: v
+      definition: To try out for.
+
+- word: create
+  definitions:
+    - part_of_speech: v
+      definition: To bring into being; to produce for the first time.
+    - part_of_speech: adj
+      definition: (creative) Having new and original ideas.
+    - part_of_speech: n
+      definition: (creation) The act of bringing into being; something created.
+
+- word: elevate
+  definitions:
+    - part_of_speech: v
+      definition: To lift up; to raise to a higher level.
+    - part_of_speech: n
+      definition: (elevation) Height.
+
+- word: eliminate
+  definitions:
+    - part_of_speech: v
+      definition: To get rid of; to remove or leave out.
+    - part_of_speech: n
+      definition: (elimination) A getting rid of.
+
+- word: engage
+  definitions:
+    - part_of_speech: v
+      definition: To put to work; to hire.
+    - part_of_speech: v
+      definition: To keep busy or active.
+    - part_of_speech: v
+      definition: To bind oneself to do something, especially to marry.
+
+- word: entrance
+  definitions:
+    - part_of_speech: v
+      definition: To fill with joy or delight.
+    - part_of_speech: adj
+      definition: (entrancing) Delightful.
+
+- word: essential
+  definitions:
+    - part_of_speech: adj
+      definition: Most important; very necessary.
+    - part_of_speech: n
+      definition: (essentials) Something that cannot be done without.
+
+- word: foremost
+  definitions:
+    - part_of_speech: adj
+      definition: First in importance, time, or place.
+
+- word: forsake
+  definitions:
+    - part_of_speech: v
+      definition: To have nothing more to do with; to turn one's back on.
+
+- word: recognize
+  definitions:
+    - part_of_speech: v
+      definition: To know and remember upon seeing.
+    - part_of_speech: v
+      definition: To admit the truth or accept the existence of.
+    - part_of_speech: v
+      definition: To accept and approve.
+
+- word: sentimental
+  definitions:
+    - part_of_speech: adj
+      definition: Expressing feelings of love or pity, sometimes to excess.
+
+- word: source
+  definitions:
+    - part_of_speech: n
+      definition: The thing or place from which something comes.
+
+- word: tour
+  definitions:
+    - part_of_speech: n
+      definition: A trip or journey in which one usually returns to the starting point.
+    - part_of_speech: v
+      definition: To travel from place to place.
+
+- word: tradition
+  definitions:
+    - part_of_speech: n
+      definition: A custom, opinion, or belief handed down from family or other groups.
+    - part_of_speech: adj
+      definition: (traditional) Handed down from age to age.
+
+- word: trio
+  definitions:
+    - part_of_speech: n
+      definition: A group of three people.
