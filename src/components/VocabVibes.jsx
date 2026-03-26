@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
+import { preloadForList, playReaction, playWord, playUI } from "../audio.js";
 import "./VocabVibes.css";
 
 const STREAK_TO_MASTER = 2;
@@ -60,7 +61,7 @@ function buildQueue(words, progress) {
   const pool = [];
   for (const w of unmastered) {
     const streak = progress[w.word]?.streak || 0;
-    const copies = STREAK_TO_MASTER - streak; // streak 0 → 2 copies, streak 1 → 1 copy
+    const copies = STREAK_TO_MASTER - streak;
     for (let i = 0; i < copies; i++) {
       pool.push(w);
     }
@@ -80,10 +81,20 @@ function makeQuestion(targetWord, allWords) {
   };
 }
 
+const LOADING_TIPS = [
+  "Loading the vibes... ✨",
+  "Downloading brainpower... 🧠",
+  "Getting the audio ready... 🎧",
+  "Almost there bestie... 💅",
+  "Cooking up something fire... 🔥",
+];
+
 export default function VocabVibes({ list, onBack }) {
   const { id: listId, words } = list;
+  const [loading, setLoading] = useState(true);
+  const [audioLoadStatus, setAudioLoadStatus] = useState({ loaded: 0, total: 1 });
   const [progress, setProgress] = useState(() => loadProgress(listId));
-  const [queue, setQueue] = useState(() => buildQueue(words, loadProgress(listId)));
+  const [queue, setQueue] = useState([]);
   const [queueIndex, setQueueIndex] = useState(0);
   const [question, setQuestion] = useState(null);
   const [feedback, setFeedback] = useState(null);
@@ -93,6 +104,32 @@ export default function VocabVibes({ list, onBack }) {
   const [particles, setParticles] = useState([]);
   const [shakeWord, setShakeWord] = useState(null);
 
+  const [loadingTip] = useState(() => pickRandom(LOADING_TIPS));
+
+  // Preload audio on mount
+  useEffect(() => {
+    let cancelled = false;
+    preloadForList(words, (loaded, total) => {
+      if (!cancelled) setAudioLoadStatus({ loaded, total });
+    }).then(() => {
+      if (!cancelled) {
+        const saved = loadProgress(listId);
+        setProgress(saved);
+        const q = buildQueue(words, saved);
+        setQueue(q);
+        if (q.length === 0) {
+          setAllMastered(true);
+        } else {
+          setQuestion(makeQuestion(q[0], words));
+          setQueueIndex(1);
+        }
+        setLoading(false);
+        playUI("welcome");
+      }
+    });
+    return () => { cancelled = true; };
+  }, [listId, words]);
+
   const masteredCount = useMemo(
     () => words.filter((w) => progress[w.word]?.mastered).length,
     [words, progress]
@@ -100,16 +137,6 @@ export default function VocabVibes({ list, onBack }) {
 
   const totalWords = words.length;
   const cloutPercent = Math.round((masteredCount / totalWords) * 100);
-
-  // Initialize first question
-  useEffect(() => {
-    if (queue.length > 0 && !question && !allMastered) {
-      setQuestion(makeQuestion(queue[0], words));
-      setQueueIndex(1);
-    } else if (queue.length === 0 && !allMastered) {
-      setAllMastered(true);
-    }
-  }, [queue, question, words, allMastered]);
 
   const spawnParticles = useCallback((correct) => {
     const emojis = correct
@@ -135,8 +162,8 @@ export default function VocabVibes({ list, onBack }) {
       if (newQueue.length === 0) {
         setAllMastered(true);
         setQuestion(null);
+        playUI("you_understood_the_assignment");
       } else {
-        // Avoid showing the same word twice in a row
         let pick = newQueue[0];
         let idx = 1;
         if (pick.word === previousWord && newQueue.length > 1) {
@@ -184,6 +211,12 @@ export default function VocabVibes({ list, onBack }) {
           reaction = pickRandom(CORRECT_REACTIONS);
         }
         spawnParticles(true);
+        // Play: word audio, then reaction
+        playWord(question.word);
+        setTimeout(() => playReaction(reaction), 600);
+        if (justMastered) {
+          setTimeout(() => playUI("word_mastered"), 1200);
+        }
       } else {
         newEntry = {
           ...prev,
@@ -195,6 +228,10 @@ export default function VocabVibes({ list, onBack }) {
         setCombo(0);
         setShakeWord(chosen);
         spawnParticles(false);
+        // Play: wrong reaction, then "the answer was", then the correct word
+        playReaction(reaction);
+        setTimeout(() => playUI("the_answer_was"), 800);
+        setTimeout(() => playWord(question.word), 1800);
       }
 
       const newProgress = { ...progress, [question.word]: newEntry };
@@ -216,7 +253,8 @@ export default function VocabVibes({ list, onBack }) {
     const newQueue = buildQueue(words, fresh);
     setQueue(newQueue);
     setQueueIndex(0);
-    setQuestion(null);
+    setQuestion(makeQuestion(newQueue[0], words));
+    setQueueIndex(1);
     setFeedback(null);
     setSelectedChoice(null);
     setAllMastered(false);
@@ -239,6 +277,30 @@ export default function VocabVibes({ list, onBack }) {
     if (p.totalWrong > 0) return { word: w.word, status: "struggling" };
     return { word: w.word, status: "unseen" };
   });
+
+  // Loading screen
+  if (loading) {
+    const pct = Math.round((audioLoadStatus.loaded / audioLoadStatus.total) * 100);
+    return (
+      <div className="vv">
+        <div className="vv-loading">
+          <div className="vv-loading-inner">
+            <div className="vv-loading-emoji">🎧✨🎵</div>
+            <h2 className="vv-loading-title">{loadingTip}</h2>
+            <div className="vv-loading-bar-wrap">
+              <div className="vv-loading-bar">
+                <div className="vv-loading-fill" style={{ width: `${pct}%` }} />
+              </div>
+              <span className="vv-loading-pct">{pct}%</span>
+            </div>
+            <p className="vv-loading-count">
+              {audioLoadStatus.loaded} / {audioLoadStatus.total} audio files
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="vv">
