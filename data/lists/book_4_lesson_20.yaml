@@ -1,0 +1,102 @@
+- word: arrest
+  definitions:
+    - part_of_speech: v
+      definition: To stop the movement or progress of.
+    - part_of_speech: v
+      definition: To seize and charge with breaking the law.
+    - part_of_speech: n
+      definition: The act of arresting.
+
+- word: capable
+  definitions:
+    - part_of_speech: adj
+      definition: Able to do things well; skilled.
+    - part_of_speech: adj
+      definition: Ready and able to; having the qualities necessary for.
+
+- word: congratulate
+  definitions:
+    - part_of_speech: v
+      definition: To express pleasure for a person's success or good fortune.
+
+- word: despise
+  definitions:
+    - part_of_speech: v
+      definition: To scorn and dislike strongly; to consider unworthy of respect.
+
+- word: dispute
+  definitions:
+    - part_of_speech: n
+      definition: A strong difference of opinion; an argument.
+    - part_of_speech: v
+      definition: To question the truth or value of.
+
+- word: eventual
+  definitions:
+    - part_of_speech: adj
+      definition: Coming at a later time; happening as a result of.
+
+- word: helm
+  definitions:
+    - part_of_speech: n
+      definition: The wheel or tiller used to steer a boat.
+    - part_of_speech: n
+      definition: A position of control.
+
+- word: humiliate
+  definitions:
+    - part_of_speech: v
+      definition: To treat in a way that takes away a person's pride or self-respect.
+
+- word: implore
+  definitions:
+    - part_of_speech: v
+      definition: To plead with or beg for with much feeling.
+
+- word: insert
+  definitions:
+    - part_of_speech: v
+      definition: To put in.
+    - part_of_speech: n
+      definition: An extra piece sewn or put in place.
+
+- word: outrage
+  definitions:
+    - part_of_speech: n
+      definition: Anger caused by injury or insult.
+    - part_of_speech: n
+      definition: Anything that causes resentment or anger; a wicked or brutal act or remark.
+    - part_of_speech: v
+      definition: To fill with anger or resentment.
+
+- word: pierce
+  definitions:
+    - part_of_speech: v
+      definition: To pass or break through.
+    - part_of_speech: v
+      definition: To make a hole through.
+
+- word: quiver
+  definitions:
+    - part_of_speech: v
+      definition: To shake with small, rapid movements; to tremble.
+    - part_of_speech: n
+      definition: A trembling.
+    - part_of_speech: n
+      definition: A case for holding arrows.
+
+- word: release
+  definitions:
+    - part_of_speech: v
+      definition: To let go; to free.
+    - part_of_speech: v
+      definition: To make known.
+    - part_of_speech: n
+      definition: A setting free.
+    - part_of_speech: n
+      definition: An announcement of news.
+
+- word: sullen
+  definitions:
+    - part_of_speech: adj
+      definition: Silent from anger or hurt.
